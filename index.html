@@ -1,422 +1,226 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NpSharp - IDE Moderna para Programação</title>
-    <link rel="shortcut icon" href="fav.png" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-:root {
-    --bg-color: #1e1e1e;
-    --text-color: #ffffff;
-    --accent-color: #ff2b2b;
-    --secondary-color: #9aa0a6;
-    --card-bg: #2d2d2d;
-    --button-bg: #ff6b6b;
-    --button-hover: #e55a5a;
-    --shadow: rgba(0, 0, 0, 0.35);
-    --hero-bg: linear-gradient(135deg, #1e1e1e 0%, #2d2d2d 50%, #1e1e1e 100%);
-    --border-color: #404040;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NpSharp</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"Segoe UI",Tahoma,Geneva,Verdana,sans-serif;background:#0a0a0a;color:#f0f0f0;line-height:1.6;overflow-x:hidden}
+
+header{background:#0a0a0a;padding:1.2rem 2.5rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #1e1e1e;position:sticky;top:0;z-index:100}
+.logo{font-family:"Courier New",monospace;font-size:1.2rem;font-weight:700;color:#fff;text-decoration:none;letter-spacing:2px}
+.logo span{color:#888}
+nav{display:flex;gap:0.2rem}
+nav a{color:#888;text-decoration:none;padding:0.4rem 0.9rem;border-radius:6px;font-size:0.88rem;transition:all 0.2s;letter-spacing:0.5px}
+nav a:hover{color:#fff;background:#1a1a1a}
+
+.hero{min-height:80vh;padding:6rem 2rem;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;border-bottom:1px solid #1a1a1a;position:relative}
+.hero-tag{font-size:0.78rem;letter-spacing:3px;color:#555;text-transform:uppercase;margin-bottom:1.5rem}
+.hero h1{font-family:"Courier New",monospace;font-size:5rem;font-weight:700;color:#fff;letter-spacing:-2px;line-height:1;margin-bottom:1.5rem}
+.hero h1 span{color:#333}
+.hero p{font-size:1.1rem;max-width:560px;color:#666;line-height:1.8;margin-bottom:2.5rem}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center}
+.btn-primary{background:#fff;color:#0a0a0a;text-decoration:none;padding:0.75rem 2rem;border-radius:6px;font-weight:600;font-size:0.9rem;letter-spacing:0.5px;transition:all 0.2s}
+.btn-primary:hover{background:#ddd}
+.btn-secondary{background:transparent;color:#888;text-decoration:none;padding:0.75rem 2rem;border-radius:6px;font-size:0.9rem;border:1px solid #2a2a2a;letter-spacing:0.5px;transition:all 0.2s}
+.btn-secondary:hover{border-color:#555;color:#fff}
+
+main{max-width:1100px;margin:0 auto;padding:4rem 2rem}
+.section{margin-bottom:6rem;scroll-margin-top:80px}
+.section-label{font-size:0.75rem;letter-spacing:3px;text-transform:uppercase;color:#444;margin-bottom:1rem}
+.section h2{font-family:"Courier New",monospace;font-size:2.4rem;color:#fff;margin-bottom:1rem;font-weight:700}
+.section>p{color:#666;max-width:600px;font-size:1rem}
+
+.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;background:#1a1a1a;border:1px solid #1a1a1a;border-radius:12px;overflow:hidden;margin-top:3rem}
+.feature-card{background:#0a0a0a;padding:2rem;transition:background 0.2s}
+.feature-card:hover{background:#111}
+.feature-card i{font-size:1.2rem;color:#444;margin-bottom:1.2rem;display:block}
+.feature-card h3{font-size:1rem;font-weight:600;color:#e0e0e0;margin-bottom:0.6rem;letter-spacing:0.3px}
+.feature-card p{color:#555;font-size:0.88rem;line-height:1.7}
+
+.download-box{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:3rem;text-align:center;margin-top:3rem}
+.download-box p{color:#666;max-width:500px;margin:0 auto 2rem;font-size:0.95rem}
+.download-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+
+.changelog{margin-top:3rem}
+.version-block{border-left:1px solid #1e1e1e;padding-left:2rem;margin-bottom:2.5rem;position:relative}
+.version-block::before{content:'';width:7px;height:7px;border-radius:50%;background:#333;position:absolute;left:-4px;top:6px}
+.version-label{font-size:0.75rem;letter-spacing:2px;text-transform:uppercase;color:#444;margin-bottom:0.5rem}
+.version-title{font-size:1rem;font-weight:600;color:#e0e0e0;margin-bottom:1rem}
+.version-block ul{list-style:none}
+.version-block li{color:#666;font-size:0.9rem;padding:0.35rem 0;border-bottom:1px solid #141414}
+.version-block li:last-child{border:none}
+
+.faq{margin-top:3rem}
+.faq-item{border-bottom:1px solid #141414;padding:1.5rem 0}
+.faq-item:first-child{border-top:1px solid #141414}
+.faq dt{color:#e0e0e0;font-size:0.95rem;font-weight:500;margin-bottom:0.5rem}
+.faq dd{color:#555;font-size:0.9rem}
+
+footer{background:#0a0a0a;border-top:1px solid #141414;padding:2.5rem 2rem;text-align:center}
+footer p{color:#333;font-size:0.85rem;margin-bottom:0.8rem}
+footer a{color:#444;margin:0 0.6rem;text-decoration:none;font-size:0.85rem;transition:color 0.2s}
+footer a:hover{color:#888}
+
+@media(max-width:768px){
+  header{padding:1rem 1.5rem}
+  nav a{display:none}
+  .hero h1{font-size:3.2rem}
+  .hero-btns{flex-direction:column;align-items:center}
+  main{padding:3rem 1.5rem}
 }
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    background: var(--bg-color);
-    color: var(--text-color);
-    line-height: 1.6;
-    overflow-x: hidden;
-}
-
-/* ===== HEADER ===== */
-
-header {
-    background: var(--card-bg);
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    /* position: sticky; */   /* REMOVE ESSA LINHA */
-    /* top: 0; */              /* REMOVE ESSA LINHA */
-    z-index: 100;
-    box-shadow: 0 2px 10px var(--shadow);
-}
-
-.logo-img {
-    width: 50px;
-    height: 50px;
-    transition: transform 0.3s;
-}
-
-.logo-img:hover {
-    transform: scale(1.1);
-}
-
-nav {
-    display: flex;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-}
-
-nav a {
-    color: var(--text-color);
-    text-decoration: none;
-    padding: 0.4rem 0.8rem;
-    border-radius: 6px;
-    transition: all 0.25s;
-}
-
-nav a:hover {
-    background: rgba(255, 43, 43, 0.15);
-    color: var(--accent-color);
-}
-
-/* ===== HERO ===== */
-
-.hero {
-    background: var(--hero-bg);
-    min-height: 75vh;
-    padding: 6rem 2rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.hero h1 {
-    font-family: "Courier New", monospace;
-    font-size: 4rem;
-    margin-bottom: 1rem;
-}
-
-.hero p {
-    font-size: 1.4rem;
-    max-width: 720px;
-    margin: 0 auto;
-    color: var(--secondary-color);
-}
-
-/* ===== MAIN ===== */
-
-main {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 3rem 2rem;
-}
-
-.section {
-    margin-bottom: 5rem;
-    scroll-margin-top: 120px;
-}
-
-.section h2 {
-    text-align: center;
-    font-family: "Courier New", monospace;
-    font-size: 3rem;
-    margin-bottom: 3rem;
-    color: var(--accent-color);
-}
-
-.section p {
-    max-width: 900px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-/* ===== FEATURES ===== */
-
-.features {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-}
-
-.feature-card {
-    background: var(--card-bg);
-    border-radius: 15px;
-    padding: 2rem;
-    text-align: center;
-    box-shadow: 0 6px 20px var(--shadow);
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.feature-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 30px var(--shadow);
-}
-
-.feature-card i {
-    font-size: 3.5rem;
-    color: var(--accent-color);
-    margin-bottom: 1.2rem;
-}
-
-.feature-card h3 {
-    font-size: 1.6rem;
-    margin-bottom: 0.8rem;
-}
-
-.feature-card p {
-    color: var(--secondary-color);
-}
-
-/* ===== BUTTONS ===== */
-
-.buttons {
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-}
-
-.btn {
-    background: linear-gradient(45deg, var(--button-bg), var(--button-hover));
-    color: var(--text-color);
-    text-decoration: none;
-    padding: 1rem 2.5rem;
-    border-radius: 50px;
-    font-weight: bold;
-    box-shadow: 0 0 15px rgba(255, 107, 107, 0.35);
-    transition: all 0.3s;
-}
-
-.btn:hover {
-    transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 0 25px rgba(255, 107, 107, 0.55);
-}
-
-/* ===== DOWNLOAD ===== */
-
-.download-section {
-    background: var(--card-bg);
-    padding: 4rem 2rem;
-    border-radius: 15px;
-    box-shadow: 0 6px 20px var(--shadow);
-    text-align: center;
-}
-
-.download-section p {
-    max-width: 700px;
-    margin: 0 auto 2rem;
-    color: var(--secondary-color);
-}
-
-/* ===== CHANGELOG & FAQ ===== */
-
-.changelog,
-.faq {
-    background: var(--card-bg);
-    border-radius: 15px;
-    padding: 3rem;
-    box-shadow: 0 6px 20px var(--shadow);
-}
-
-.changelog h3,
-.faq dt {
-    color: var(--accent-color);
-    margin-top: 1rem;
-}
-
-.changelog ul {
-    list-style: none;
-}
-
-.changelog li {
-    margin-bottom: 1rem;
-    padding-left: 1rem;
-    border-left: 3px solid var(--accent-color);
-}
-
-.faq dd {
-    color: var(--secondary-color);
-    margin-bottom: 1rem;
-}
-
-/* ===== FOOTER ===== */
-
-footer {
-    background: var(--card-bg);
-    padding: 3rem 2rem;
-    text-align: center;
-    border-top: 1px solid var(--border-color);
-    color: var(--secondary-color);
-}
-
-footer a {
-    color: var(--accent-color);
-    margin: 0 0.6rem;
-    text-decoration: none;
-}
-
-footer a:hover {
-    color: var(--text-color);
-}
-
-/* ===== RESPONSIVE ===== */
-
-@media (max-width: 1024px) {
-    .hero h1 { font-size: 3.2rem; }
-    .section h2 { font-size: 2.4rem; }
-}
-
-/* Responsividade principal */
-@media (max-width:768px){
-    .hero h1 { font-size:3rem; }
-    .hero p { font-size:1.2rem; }
-    .hero .buttons, .download-section .buttons { 
-        flex-direction: column; 
-        gap: 1rem; 
-    }
-    .feature-card { margin-bottom:1.5rem; }
-}
-
-/* Telas muito pequenas, até 300px de largura */
-@media (max-width:300px){
-    header { padding: 0.5rem 1rem; }
-    nav { flex-direction: column; gap: 0.5rem; }
-    nav a { padding: 0.3rem 0.5rem; font-size: 0.9rem; }
-    .hero h1 { font-size:2rem; }
-    .hero p { font-size:1rem; max-width: 95%; }
-    .hero .buttons, .download-section .buttons { gap: 0.5rem; }
-    .feature-card { padding:1rem; }
-    .download-section { padding: 2rem 1rem; }
-}
-
-    </style>
+</style>
 </head>
 <body>
-    <header>
-        <a href="#"><img src="logo.png" alt="NpSharp Logo" class="logo-img"></a>
-        <nav>
-            <a href="#sobre">Sobre</a>
-            <a href="#recursos">Recursos</a>
-            <a href="#download">Download</a>
-            <a href="#changelog">Changelog</a>
-            <a href="#faq">FAQ</a>
-            <a href="#contato">Contato</a>
-        </nav>
-    </header>
 
-    <section class="hero">
-        <h1>NpSharp IDE</h1>
-        <p>Potencialize seu desenvolvimento com uma IDE moderna, leve e poderosa. Suporte avançado a linguagens, depuração integrada e extensões personalizáveis.</p>
-    </section>
+<header>
+  <a href="#" class="logo">Np<span>#</span></a>
+  <nav>
+    <a href="#sobre">Sobre</a>
+    <a href="#recursos">Recursos</a>
+    <a href="#download">Download</a>
+    <a href="#changelog">Changelog</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contato">Contato</a>
+  </nav>
+</header>
 
-    <main>
-        <section id="sobre" class="section">
-            <h2>Sobre o NpSharp</h2>
-            <p>O NpSharp é uma IDE inovadora projetada para desenvolvedores que buscam eficiência e produtividade. Com editor inteligente, integração com ferramentas modernas e comunidade ativa, ele transforma a maneira como você codifica.</p>
-        </section>
+<section class="hero">
+  <p class="hero-tag">IDE Moderna</p>
+  <h1>Np<span>Sharp</span></h1>
+  <p>Uma IDE leve e poderosa. Suporte avançado a linguagens, depuração integrada e extensões personalizáveis.</p>
+  <div class="hero-btns">
+    <a class="btn-primary" href="https://github.com/CorelabsBR/NPSharp/releases/download/v2025.32.0/NPSharpInstaller-v2025.32.0.exe">Baixar Instalador</a>
+    <a class="btn-secondary" href="https://github.com/CorelabsBR/NPSharp/releases/download/v2025.32.0/NPSharp-Stable-v2025.32.0.rar">Versão Portable</a>
+  </div>
+</section>
 
-        <section id="recursos" class="section">
-            <h2>Recursos Principais</h2>
-            <div class="features">
-                <div class="feature-card">
-                    <i class="fas fa-code"></i>
-                    <h3>Editor Inteligente</h3>
-                    <p>Realce de sintaxe avançado, autocompletar contextual e refatoração automática para múltiplas linguagens.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-bug"></i>
-                    <h3>Depuração Integrada</h3>
-                    <p>Ferramentas robustas para depuração com breakpoints, inspeção de pilha e suporte remoto.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-plug"></i>
-                    <h3>Extensões e Temas</h3>
-                    <p>Personalize sua IDE com milhares de extensões, temas e integração com Git, Docker e mais.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-mobile-alt"></i>
-                    <h3>Interface Responsiva</h3>
-                    <p>Design adaptável que funciona perfeitamente em desktops, laptops e dispositivos móveis.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-terminal"></i>
-                    <h3>Terminal Integrado</h3>
-                    <p>Execute comandos diretamente na IDE com terminal embutido, suporte a shells personalizados e histórico.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-share-alt"></i>
-                    <h3>Colaboração</h3>
-                    <p>Recursos para trabalho em equipe, compartilhamento de código em tempo real e integração com versionamento.</p>
-                </div>
-            </div>
-        </section>
+<main>
+  <section id="sobre" class="section">
+    <p class="section-label">Sobre</p>
+    <h2>O que é o NpSharp?</h2>
+    <p>Uma IDE inovadora para desenvolvedores que buscam eficiência. Com editor inteligente, integração com ferramentas modernas e comunidade ativa.</p>
+  </section>
 
-        <section id="download" class="section">
-            <div class="download-section">
-                <h2>Download NpSharp</h2>
-                <p>Escolha a versão mais adequada para você. Portable para uso sem instalação, Instalador para configuração completa com atalhos e integração.</p>
-        <div class="buttons">
-            <a class="btn" href="https://github.com/CorelabsBR/NPSharp/releases/download/v2025.32.0/NPSharp-Stable-v2025.32.0.rar" download>Baixar Versão Portable</a>
-            <a class="btn" href="https://github.com/CorelabsBR/NPSharp/releases/download/v2025.32.0/NPSharpInstaller-v2025.32.0.exe" download>Baixar Instalador</a>
-        </div>
-            </div>
-        </section>
+  <section id="recursos" class="section">
+    <p class="section-label">Recursos</p>
+    <h2>Feito para produtividade.</h2>
+    <div class="features">
+      <div class="feature-card">
+        <i class="fas fa-code"></i>
+        <h3>Editor Inteligente</h3>
+        <p>Realce de sintaxe, autocompletar contextual e refatoração para múltiplas linguagens.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-bug"></i>
+        <h3>Depuração Integrada</h3>
+        <p>Breakpoints, inspeção de pilha e suporte a depuração remota.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-plug"></i>
+        <h3>Extensões e Temas</h3>
+        <p>Personalize com extensões, temas e integração nativa com Git e Docker.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-terminal"></i>
+        <h3>Terminal Integrado</h3>
+        <p>Execute comandos diretamente com terminal embutido e histórico persistente.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-share-alt"></i>
+        <h3>Colaboração</h3>
+        <p>Compartilhamento de código em tempo real e integração com versionamento.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-mobile-alt"></i>
+        <h3>Interface Responsiva</h3>
+        <p>Design adaptável para desktops, laptops e dispositivos móveis.</p>
+      </div>
+    </div>
+  </section>
 
-        <section id="changelog" class="section">
-            <h2>Changelog</h2>
-            <div class="changelog">
-                <h3>Versão 1.2.0 (Última)</h3>
-                <ul>
-                    <li>Suporte a temas escuros personalizáveis.</li>
-                    <li>Melhorias na performance do autocompletar.</li>
-                    <li>Correção de bugs na depuração de JavaScript.</li>
-                    <li>Nova extensão para integração com APIs REST.</li>
-                </ul>
-                <h3>Versão 1.1.5</h3>
-                <ul>
-                    <li>Interface responsiva aprimorada para tablets.</li>
-                    <li>Suporte inicial a linguagens adicionais como Rust.</li>
-                    <li>Atualizações de segurança e estabilidade.</li>
-                </ul>
-            </div>
-        </section>
+  <section id="download" class="section">
+    <p class="section-label">Download</p>
+    <h2>Comece agora.</h2>
+    <div class="download-box">
+      <p>Portable para uso sem instalação. Instalador para configuração completa com atalhos e integração ao sistema.</p>
+      <div class="download-btns">
+        <a class="btn-primary" href="https://github.com/CorelabsBR/NPSharp/releases/download/v2025.32.0/NPSharpInstaller-v2025.32.0.exe">Baixar Instalador</a>
+        <a class="btn-secondary" href="https://github.com/CorelabsBR/NPSharp/releases/download/v2025.32.0/NPSharp-Stable-v2025.32.0.rar">Versão Portable</a>
+      </div>
+    </div>
+  </section>
 
-        <section id="faq" class="section">
-            <h2>Perguntas Frequentes</h2>
-            <div class="faq">
-                <dl>
-                    <dt>O NpSharp é gratuito?</dt>
-                    <dd>Sim, open-source e gratuito para uso pessoal e comercial.</dd>
-                    <dt>Quais sistemas operacionais são suportados?</dt>
-                    <dd>Atualmente, Windows. Suporte para macOS e Linux em breve.</dd>
-                    <dt>Como instalar extensões?</dt>
-                    <dd>Acesse o marketplace integrado e procure pelas extensões desejadas.</dd>
-                    <dt>Posso contribuir?</dt>
-                    <dd>Sim! Visite nosso repositório no GitHub para contribuir com código ou issues.</dd>
-                </dl>
-            </div>
-        </section>
+  <section id="changelog" class="section">
+    <p class="section-label">Changelog</p>
+    <h2>Atualizações.</h2>
+    <div class="changelog">
+      <div class="version-block">
+        <p class="version-label">Mais recente</p>
+        <p class="version-title">v1.2.0</p>
+        <ul>
+          <li>Suporte a temas escuros personalizáveis</li>
+          <li>Melhorias na performance do autocompletar</li>
+          <li>Correção de bugs na depuração de JavaScript</li>
+          <li>Nova extensão para integração com APIs REST</li>
+        </ul>
+      </div>
+      <div class="version-block">
+        <p class="version-label">Anterior</p>
+        <p class="version-title">v1.1.5</p>
+        <ul>
+          <li>Interface responsiva aprimorada para tablets</li>
+          <li>Suporte inicial a Rust</li>
+          <li>Atualizações de segurança e estabilidade</li>
+        </ul>
+      </div>
+    </div>
+  </section>
 
-        <section id="contato" class="section">
-            <h2>Contato</h2>
-            <p>Entre em contato para feedback, suporte ou sugestões.</p>
-        </section>
-    </main>
+  <section id="faq" class="section">
+    <p class="section-label">FAQ</p>
+    <h2>Perguntas frequentes.</h2>
+    <dl class="faq">
+      <div class="faq-item">
+        <dt>O NpSharp é gratuito?</dt>
+        <dd>Sim, open-source e gratuito para uso pessoal e comercial.</dd>
+      </div>
+      <div class="faq-item">
+        <dt>Quais sistemas operacionais são suportados?</dt>
+        <dd>Atualmente Windows. Suporte para macOS e Linux em breve.</dd>
+      </div>
+      <div class="faq-item">
+        <dt>Como instalar extensões?</dt>
+        <dd>Acesse o marketplace integrado e procure pelas extensões desejadas.</dd>
+      </div>
+      <div class="faq-item">
+        <dt>Posso contribuir?</dt>
+        <dd>Sim! Visite o repositório no GitHub para contribuir com código ou issues.</dd>
+      </div>
+    </dl>
+  </section>
 
-    <footer>
-        <p>&copy; 2024 NpSharp. Todos os direitos reservados.</p>
-        <p>
-            <a href="#sobre">Sobre</a> |
-            <a href="#recursos">Recursos</a> |
-            <a href="#download">Download</a> |
-            <a href="#changelog">Changelog</a> |
-            <a href="https://github.com/Notepad-Sharp/NPSharp/pulls">FAQ</a> |
-            <a href="mailto:matheusgirelli357@gmail.com">Contato</a>
-        </p>
-    </footer>
+  <section id="contato" class="section">
+    <p class="section-label">Contato</p>
+    <h2>Entre em contato.</h2>
+    <p>Feedback, suporte ou sugestões — fale com a gente. <a href="mailto:matheusgirelli357@gmail.com" style="color:#555;text-decoration:none;border-bottom:1px solid #333">matheusgirelli357@gmail.com</a></p>
+  </section>
+</main>
+
+<footer>
+  <p>&copy; 2024 NpSharp. Todos os direitos reservados.</p>
+  <p>
+    <a href="#sobre">Sobre</a>
+    <a href="#recursos">Recursos</a>
+    <a href="#download">Download</a>
+    <a href="#changelog">Changelog</a>
+    <a href="#faq">FAQ</a>
+    <a href="mailto:matheusgirelli357@gmail.com">Contato</a>
+  </p>
+</footer>
+
 </body>
 </html>
