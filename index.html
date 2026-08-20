@@ -1,226 +1,472 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NpSharp</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:"Segoe UI",Tahoma,Geneva,Verdana,sans-serif;background:#0a0a0a;color:#f0f0f0;line-height:1.6;overflow-x:hidden}
-
-header{background:#0a0a0a;padding:1.2rem 2.5rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #1e1e1e;position:sticky;top:0;z-index:100}
-.logo{font-family:"Courier New",monospace;font-size:1.2rem;font-weight:700;color:#fff;text-decoration:none;letter-spacing:2px}
-.logo span{color:#888}
-nav{display:flex;gap:0.2rem}
-nav a{color:#888;text-decoration:none;padding:0.4rem 0.9rem;border-radius:6px;font-size:0.88rem;transition:all 0.2s;letter-spacing:0.5px}
-nav a:hover{color:#fff;background:#1a1a1a}
-
-.hero{min-height:80vh;padding:6rem 2rem;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;border-bottom:1px solid #1a1a1a;position:relative}
-.hero-tag{font-size:0.78rem;letter-spacing:3px;color:#555;text-transform:uppercase;margin-bottom:1.5rem}
-.hero h1{font-family:"Courier New",monospace;font-size:5rem;font-weight:700;color:#fff;letter-spacing:-2px;line-height:1;margin-bottom:1.5rem}
-.hero h1 span{color:#333}
-.hero p{font-size:1.1rem;max-width:560px;color:#666;line-height:1.8;margin-bottom:2.5rem}
-.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center}
-.btn-primary{background:#fff;color:#0a0a0a;text-decoration:none;padding:0.75rem 2rem;border-radius:6px;font-weight:600;font-size:0.9rem;letter-spacing:0.5px;transition:all 0.2s}
-.btn-primary:hover{background:#ddd}
-.btn-secondary{background:transparent;color:#888;text-decoration:none;padding:0.75rem 2rem;border-radius:6px;font-size:0.9rem;border:1px solid #2a2a2a;letter-spacing:0.5px;transition:all 0.2s}
-.btn-secondary:hover{border-color:#555;color:#fff}
-
-main{max-width:1100px;margin:0 auto;padding:4rem 2rem}
-.section{margin-bottom:6rem;scroll-margin-top:80px}
-.section-label{font-size:0.75rem;letter-spacing:3px;text-transform:uppercase;color:#444;margin-bottom:1rem}
-.section h2{font-family:"Courier New",monospace;font-size:2.4rem;color:#fff;margin-bottom:1rem;font-weight:700}
-.section>p{color:#666;max-width:600px;font-size:1rem}
-
-.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;background:#1a1a1a;border:1px solid #1a1a1a;border-radius:12px;overflow:hidden;margin-top:3rem}
-.feature-card{background:#0a0a0a;padding:2rem;transition:background 0.2s}
-.feature-card:hover{background:#111}
-.feature-card i{font-size:1.2rem;color:#444;margin-bottom:1.2rem;display:block}
-.feature-card h3{font-size:1rem;font-weight:600;color:#e0e0e0;margin-bottom:0.6rem;letter-spacing:0.3px}
-.feature-card p{color:#555;font-size:0.88rem;line-height:1.7}
-
-.download-box{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:3rem;text-align:center;margin-top:3rem}
-.download-box p{color:#666;max-width:500px;margin:0 auto 2rem;font-size:0.95rem}
-.download-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
-
-.changelog{margin-top:3rem}
-.version-block{border-left:1px solid #1e1e1e;padding-left:2rem;margin-bottom:2.5rem;position:relative}
-.version-block::before{content:'';width:7px;height:7px;border-radius:50%;background:#333;position:absolute;left:-4px;top:6px}
-.version-label{font-size:0.75rem;letter-spacing:2px;text-transform:uppercase;color:#444;margin-bottom:0.5rem}
-.version-title{font-size:1rem;font-weight:600;color:#e0e0e0;margin-bottom:1rem}
-.version-block ul{list-style:none}
-.version-block li{color:#666;font-size:0.9rem;padding:0.35rem 0;border-bottom:1px solid #141414}
-.version-block li:last-child{border:none}
-
-.faq{margin-top:3rem}
-.faq-item{border-bottom:1px solid #141414;padding:1.5rem 0}
-.faq-item:first-child{border-top:1px solid #141414}
-.faq dt{color:#e0e0e0;font-size:0.95rem;font-weight:500;margin-bottom:0.5rem}
-.faq dd{color:#555;font-size:0.9rem}
-
-footer{background:#0a0a0a;border-top:1px solid #141414;padding:2.5rem 2rem;text-align:center}
-footer p{color:#333;font-size:0.85rem;margin-bottom:0.8rem}
-footer a{color:#444;margin:0 0.6rem;text-decoration:none;font-size:0.85rem;transition:color 0.2s}
-footer a:hover{color:#888}
-
-@media(max-width:768px){
-  header{padding:1rem 1.5rem}
-  nav a{display:none}
-  .hero h1{font-size:3.2rem}
-  .hero-btns{flex-direction:column;align-items:center}
-  main{padding:3rem 1.5rem}
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NPSharp | Editor de código livre</title>
+  <link rel="shortcut icon" href="fav.png" type="image/x-icon">
+  <link rel="stylesheet" href="css.css">
+  <meta
+    name="description"
+    content="NPSharp  é um editor de código local-first, sem telemetria, sem amarras e com desempenho previsível."
+  />
 </head>
 <body>
+  <header class="navbar" id="navbar">
+    <div class="container navbar-inner">
+      <a href="#inicio" class="brand">
+        <img
+          class="brand-mark"
+          src="fav.png"
+          alt="Logo do NNPSharp "
+        />
+        <div class="brand-text">
+          <strong>NPSharp</strong>
+          <span>Editor • Local-first • Livre</span>
+        </div>
+      </a>
 
-<header>
-  <a href="#" class="logo">Np<span>#</span></a>
-  <nav>
-    <a href="#sobre">Sobre</a>
-    <a href="#recursos">Recursos</a>
-    <a href="#download">Download</a>
-    <a href="#changelog">Changelog</a>
-    <a href="#faq">FAQ</a>
-    <a href="#contato">Contato</a>
-  </nav>
-</header>
+      <ul class="nav-links">
+        <li><a href="#features">Recursos</a></li>
+        <li><a href="#filosofia">Filosofia</a></li>
+        <li><a href="#download">Download</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#links">Links</a></li>
+      </ul>
 
-<section class="hero">
-  <p class="hero-tag">IDE Moderna</p>
-  <h1>Np<span>Sharp</span></h1>
-  <p>Uma IDE leve e poderosa. Suporte avançado a linguagens, depuração integrada e extensões personalizáveis.</p>
-  <div class="hero-btns">
-    <a class="btn-primary" href="https://github.com/CorelabsBR/NPSharp/releases/download/v2025.32.0/NPSharpInstaller-v2025.32.0.exe">Baixar Instalador</a>
-    <a class="btn-secondary" href="https://github.com/CorelabsBR/NPSharp/releases/download/v2025.32.0/NPSharp-Stable-v2025.32.0.rar">Versão Portable</a>
-  </div>
-</section>
+      <div class="nav-actions">
+        <a href="https://github.com/CorelabsBR/CL_NPSharp/" target="_blank" class="btn btn-secondary" rel="noreferrer">GitHub</a>
+        <a href="#download" class="btn btn-primary">Baixar agora</a>
+      </div>
 
-<main>
-  <section id="sobre" class="section">
-    <p class="section-label">Sobre</p>
-    <h2>O que é o NpSharp?</h2>
-    <p>Uma IDE inovadora para desenvolvedores que buscam eficiência. Com editor inteligente, integração com ferramentas modernas e comunidade ativa.</p>
-  </section>
-
-  <section id="recursos" class="section">
-    <p class="section-label">Recursos</p>
-    <h2>Feito para produtividade.</h2>
-    <div class="features">
-      <div class="feature-card">
-        <i class="fas fa-code"></i>
-        <h3>Editor Inteligente</h3>
-        <p>Realce de sintaxe, autocompletar contextual e refatoração para múltiplas linguagens.</p>
-      </div>
-      <div class="feature-card">
-        <i class="fas fa-bug"></i>
-        <h3>Depuração Integrada</h3>
-        <p>Breakpoints, inspeção de pilha e suporte a depuração remota.</p>
-      </div>
-      <div class="feature-card">
-        <i class="fas fa-plug"></i>
-        <h3>Extensões e Temas</h3>
-        <p>Personalize com extensões, temas e integração nativa com Git e Docker.</p>
-      </div>
-      <div class="feature-card">
-        <i class="fas fa-terminal"></i>
-        <h3>Terminal Integrado</h3>
-        <p>Execute comandos diretamente com terminal embutido e histórico persistente.</p>
-      </div>
-      <div class="feature-card">
-        <i class="fas fa-share-alt"></i>
-        <h3>Colaboração</h3>
-        <p>Compartilhamento de código em tempo real e integração com versionamento.</p>
-      </div>
-      <div class="feature-card">
-        <i class="fas fa-mobile-alt"></i>
-        <h3>Interface Responsiva</h3>
-        <p>Design adaptável para desktops, laptops e dispositivos móveis.</p>
+      <div class="menu-toggle" id="menuToggle" aria-label="Abrir menu">
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
     </div>
-  </section>
+  </header>
 
-  <section id="download" class="section">
-    <p class="section-label">Download</p>
-    <h2>Comece agora.</h2>
-    <div class="download-box">
-      <p>Portable para uso sem instalação. Instalador para configuração completa com atalhos e integração ao sistema.</p>
-      <div class="download-btns">
-        <a class="btn-primary" href="https://github.com/CorelabsBR/NPSharp/releases/download/v2025.32.0/NPSharpInstaller-v2025.32.0.exe">Baixar Instalador</a>
-        <a class="btn-secondary" href="https://github.com/CorelabsBR/NPSharp/releases/download/v2025.32.0/NPSharp-Stable-v2025.32.0.rar">Versão Portable</a>
+  <main>
+    <section class="hero" id="inicio">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow">⚡ Editor de código local-first</div>
+          <h1>Seu código na sua máquina. Sem interferência.</h1>
+          <p>
+            NPSharp  é um editor de código feito para quem quer previsibilidade, velocidade e controle.
+            Sem telemetria, sem ruído, sem depender de serviços externos para funcionar direito.
+          </p>
+
+          <div class="hero-badges">
+            <span class="hero-badge">⚡ Inicialização imediata</span>
+            <span class="hero-badge">🔒 Zero telemetria</span>
+            <span class="hero-badge">💻 Desempenho previsível</span>
+            <span class="hero-badge">🧩 Extensível</span>
+          </div>
+
+          <div class="hero-actions">
+            <a href="https://github.com/CorelabsBR/CL_NPSharp/releases" class="btn btn-primary" target="_blank" rel="noreferrer">Baixar NpSharp</a>
+            <a href="https://github.com/CorelabsBR/CL_NPSharp/" class="btn btn-secondary" target="_blank" rel="noreferrer">Ver código</a>
+          </div>
+
+          <div class="hero-stats">
+            <div class="hero-stat">
+              <strong>100%</strong>
+              <span>Execução local</span>
+            </div>
+            <div class="hero-stat">
+              <strong>0</strong>
+              <span>Dados coletados</span>
+            </div>
+            <div class="hero-stat">
+              <strong>∞</strong>
+              <span>Controle do usuário</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-panel">
+          <div class="terminal-top">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+            <span class="terminal-label">npsharp / bootstrap</span>
+          </div>
+
+          <div class="terminal-body">
+            <div class="terminal-line"><span class="accent">$</span> npsharp projeto.js</div>
+            <div class="terminal-line"><span class="primary">→</span> Carregando editor...</div>
+            <div class="terminal-line"><span class="primary">→</span> Workspace montado</div>
+            <div class="terminal-line"><span class="primary">→</span> Terminal integrado ativo</div>
+            <div class="terminal-line"><span class="success">✓</span> Pronto para editar</div>
+          </div>
+
+          <div class="panel-grid">
+            <div class="mini-card">
+              <strong>Editor rápido</strong>
+              <span>Abre sem enrolar.</span>
+            </div>
+            <div class="mini-card">
+              <strong>Extensões</strong>
+              <span>Expanda quando precisar.</span>
+            </div>
+            <div class="mini-card">
+              <strong>Terminal integrado</strong>
+              <span>Fluxo contínuo de trabalho.</span>
+            </div>
+            <div class="mini-card">
+              <strong>Temas</strong>
+              <span>Visual sob seu controle.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="features">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">🚀 Recursos centrais</div>
+          <h2 class="section-title">O essencial, bem feito</h2>
+          <p class="section-text">
+            NpSharp não tenta ser tudo ao mesmo tempo. Ele foca no que importa:
+            editar código com velocidade, previsibilidade e controle real.
+          </p>
+        </div>
+
+        <div class="features-grid">
+          <article class="card feature-card">
+            <div class="feature-icon">⚡</div>
+            <h3>Inicialização imediata</h3>
+            <p>
+              Abre rápido e entra no trabalho sem splash screen, sem espera artificial e sem depender de chamadas externas.
+            </p>
+            <ul class="feature-list">
+              <li>• Boot rápido</li>
+              <li>• Sem bloqueios desnecessários</li>
+              <li>• Fluxo direto ao ponto</li>
+              <li>• Pronto para editar</li>
+            </ul>
+          </article>
+
+          <article class="card feature-card">
+            <div class="feature-icon">🔒</div>
+            <h3>Privacidade real</h3>
+            <p>
+              Nada de telemetria escondida, coleta silenciosa ou comunicação automática que você não pediu.
+            </p>
+            <ul class="feature-list">
+              <li>• Sem rastreamento</li>
+              <li>• Sem envio de métricas</li>
+              <li>• Sem conta obrigatória</li>
+              <li>• Seu código permanece seu</li>
+            </ul>
+          </article>
+
+          <article class="card feature-card">
+            <div class="feature-icon">💻</div>
+            <h3>Desempenho previsível</h3>
+            <p>
+              O editor responde como ferramenta, não como navegador fantasiado de IDE.
+            </p>
+            <ul class="feature-list">
+              <li>• Uso controlado de recursos</li>
+              <li>• Resposta consistente</li>
+              <li>• Boa experiência em hardware modesto</li>
+              <li>• Menos ruído, mais foco</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="filosofia">
+      <div class="container about-grid">
+        <div class="card about-card">
+          <div class="eyebrow">🧠 Filosofia do produto</div>
+          <h2 class="section-title">Ferramentas devem obedecer</h2>
+          <p>
+            NpSharp existe porque muitos editores modernos trocaram simplicidade por excesso,
+            previsibilidade por integração forçada e foco por coleta.
+          </p>
+          <p>
+            Aqui a ideia é outra: seu ambiente deve responder ao seu fluxo, não ao modelo de negócio de terceiros.
+          </p>
+          <p>
+            Menos dependência. Menos distração. Mais controle.
+          </p>
+
+          <div class="about-points">
+            <div class="about-point">
+              <div>✓</div>
+              <div>
+                <strong>Controle completo</strong>
+                <span>Seu editor funciona do jeito que você decide.</span>
+              </div>
+            </div>
+            <div class="about-point">
+              <div>✓</div>
+              <div>
+                <strong>Sem amarras externas</strong>
+                <span>Conta, nuvem e rastreamento não fazem parte da base.</span>
+              </div>
+            </div>
+            <div class="about-point">
+              <div>✓</div>
+              <div>
+                <strong>Código aberto</strong>
+                <span>Você pode inspecionar, adaptar e contribuir.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card terminal-card">
+          <div class="terminal-top">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+            <span class="terminal-label">npsharp / manifesto</span>
+          </div>
+
+          <div class="terminal-body">
+            <div class="terminal-line"><span class="accent">$</span> cat manifesto.txt</div>
+            <div class="terminal-line"></div>
+            <div class="terminal-line">1. Editor serve ao programador</div>
+            <div class="terminal-line">2. Código permanece local</div>
+            <div class="terminal-line">3. Performance importa</div>
+            <div class="terminal-line">4. Privacidade não é extra</div>
+            <div class="terminal-line">5. Decisões continuam humanas</div>
+            <div class="terminal-line"></div>
+            <div class="terminal-line"><span class="success">✓</span> Essa é a base do NpSharp.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="download">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">📥 Download</div>
+          <h2 class="section-title">Baixe e use</h2>
+          <p class="section-text">
+            Sem cadastro, sem ativação, sem etapas inúteis. Você baixa, abre e começa.
+          </p>
+        </div>
+
+        <div class="download-wrap">
+          <div class="card download-card">
+            <h3 style="font-size: 1.8rem; margin-bottom: 10px; color: #fff;">NPSharp para Windows</h3>
+            <p style="color: var(--muted); max-width: 680px;">
+              Release direta para quem quer instalar rápido e seguir trabalhando.
+              Também dá para acessar o código-fonte, clonar o projeto e adaptar ao seu fluxo.
+            </p>
+
+            <div class="download-main-actions">
+                        <a href="https://github.com/CorelabsBR/CL_NPSharp/releases/download/v26.8.33/NPSharp-Setup-26.8.33-x64.exe  " target="_blank" rel="noreferrer" class="btn btn-primary">Baixar Instalador</a>
+                        <a href="https://github.com/CorelabsBR/CL_NPSharp/releases/download/v26.8.33/NPSharp-Portable-Fast-26.8.33-x64.zip" target="_blank" rel="noreferrer" class="btn btn-primary">Baixar Portable</a>
+                        <a href="https://github.com/CorelabsBR/CL_NPSharp/releases/" target="_blank" rel="noreferrer" class="btn btn-secondary">Ver releases</a>
+
+            </div>
+          </div>
+                    <div class="card download-card">
+            <h3 style="font-size: 1.8rem; margin-bottom: 10px; color: #fff;">NpSharp para Linux</h3>
+            <p style="color: var(--muted); max-width: 680px;">
+              Release direta para quem quer instalar rápido e seguir trabalhando.
+              Também dá para acessar o código-fonte, clonar o projeto e adaptar ao seu fluxo.
+            </p>
+
+            <div class="download-main-actions">
+              <a href="https://github.com/CorelabsBR/CL_NPSharp/releases/download/v26.8.33/NPSharp-26.8.33-amd64.deb" target="_blank" rel="noreferrer" class="btn btn-primary">Baixar Instalador</a>
+              <a href="https://github.com/CorelabsBR/CL_NPSharp/releases/download/v26.8.33/NPSharp-26.8.33-x86_64.AppImage" target="_blank" rel="noreferrer" class="btn btn-primary">Baixar Portable</a>
+              <a href="https://github.com/CorelabsBR/CL_NPSharp/releases/" target="_blank" rel="noreferrer" class="btn btn-secondary">Ver releases</a>
+            </div>
+          </div>
+
+            <div class="card download-card">
+            <h3 style="font-size: 1.8rem; margin-bottom: 10px; color: #fff;">NpSharp para Android</h3>
+            <p style="color: var(--muted); max-width: 680px;">
+              Versão para celular e tablet, com o mesmo compromisso de rodar tudo localmente e sem telemetria.
+              Instale o APK diretamente ou confira o código-fonte.
+            </p>
+
+            <div class="download-main-actions">
+              <a href="https://github.com/CorelabsBR/CL_NPSharp/releases/download/v26.8.33/NPSharp-26.8.33.apk" target="_blank" rel="noreferrer" class="btn btn-primary">Baixar APK</a>
+              <a href="https://github.com/CorelabsBR/CL_NPSharp/releases/" target="_blank" rel="noreferrer" class="btn btn-secondary">Ver releases</a>
+            </div>
+          </div>
+
+
+          <div class="card download-side">
+            <div class="download-list">
+              <div class="download-item">
+                <strong>64-bit</strong>
+                <span>Instalação direta para uso local.</span>
+              </div>
+              <div class="download-item">
+                <strong>Código aberto</strong>
+                <span>Disponível para inspeção e contribuição.</span>
+              </div>
+              <div class="download-item">
+                <strong>Sem telemetria</strong>
+                <span>Nada é enviado automaticamente.</span>
+              </div>
+              <div class="download-item">
+                <strong>Fluxo direto</strong>
+                <span>Baixou, abriu, começou.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">❓ FAQ</div>
+          <h2 class="section-title">Perguntas comuns</h2>
+          <p class="section-text">
+            O básico, sem enrolação.
+          </p>
+        </div>
+
+        <div class="faq-list">
+          <div class="faq-item active">
+            <button class="faq-question">
+              <span>NpSharp realmente não coleta dados?</span>
+              <span>+</span>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Sim. A proposta do editor é operar sem telemetria e sem coleta silenciosa. O código está aberto para inspeção.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Ele funciona sem internet?</span>
+              <span>+</span>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Sim. O uso principal é local. Internet só entra quando você decide baixar algo externo, como updates ou extensões.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>É só um editor simples?</span>
+              <span>+</span>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Não. A proposta é ser direto e leve, mas ainda útil para trabalho real, com foco em edição, terminal e extensibilidade.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Posso contribuir com o projeto?</span>
+              <span>+</span>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Pode. O projeto está aberto no GitHub para issues, melhorias, correções e pull requests.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="cta-box">
+          <div>
+            <h3>Pronto para usar um editor que não te atrapalha?</h3>
+            <p>
+              NpSharp foi feito para código local, desempenho previsível e controle do usuário.
+            </p>
+          </div>
+          <a href="https://github.com/Notepad-Sharp/NPSharp/releases" target="_blank" rel="noreferrer" class="btn btn-primary">Baixar agora</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="links">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">📡 Links úteis</div>
+          <h2 class="section-title">Projeto, releases e suporte</h2>
+          <p class="section-text">
+            Tudo que você precisa para baixar, acompanhar ou contribuir.
+          </p>
+        </div>
+
+        <div class="links-grid">
+          <a class="link-card" href="https://github.com/Notepad-Sharp/NPSharp" target="_blank" rel="noreferrer">
+            <strong>Repositório</strong>
+            <span>Acesse o código-fonte do projeto.</span>
+            <em>Abrir GitHub →</em>
+          </a>
+
+          <a class="link-card" href="https://github.com/Notepad-Sharp/NPSharp/releases" target="_blank" rel="noreferrer">
+            <strong>Releases</strong>
+            <span>Baixe versões publicadas e acompanhe updates.</span>
+            <em>Ver releases →</em>
+          </a>
+
+          <a class="link-card" href="https://github.com/Notepad-Sharp/NPSharp/issues" target="_blank" rel="noreferrer">
+            <strong>Issues</strong>
+            <span>Reporte bugs ou proponha melhorias.</span>
+            <em>Abrir issues →</em>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>© 2026 NpSharp. Editor de código livre e open source.</p>
+      <div class="footer-links">
+        <a href="#inicio">Início</a>
+        <a href="#features">Recursos</a>
+        <a href="#download">Download</a>
+        <a href="https://github.com/Notepad-Sharp/NPSharp" target="_blank" rel="noreferrer">GitHub</a>
       </div>
     </div>
-  </section>
+  </footer>
 
-  <section id="changelog" class="section">
-    <p class="section-label">Changelog</p>
-    <h2>Atualizações.</h2>
-    <div class="changelog">
-      <div class="version-block">
-        <p class="version-label">Mais recente</p>
-        <p class="version-title">v1.2.0</p>
-        <ul>
-          <li>Suporte a temas escuros personalizáveis</li>
-          <li>Melhorias na performance do autocompletar</li>
-          <li>Correção de bugs na depuração de JavaScript</li>
-          <li>Nova extensão para integração com APIs REST</li>
-        </ul>
-      </div>
-      <div class="version-block">
-        <p class="version-label">Anterior</p>
-        <p class="version-title">v1.1.5</p>
-        <ul>
-          <li>Interface responsiva aprimorada para tablets</li>
-          <li>Suporte inicial a Rust</li>
-          <li>Atualizações de segurança e estabilidade</li>
-        </ul>
-      </div>
-    </div>
-  </section>
+  <script>
+    const navbar = document.getElementById("navbar");
+    const menuToggle = document.getElementById("menuToggle");
+    const faqItems = document.querySelectorAll(".faq-item");
 
-  <section id="faq" class="section">
-    <p class="section-label">FAQ</p>
-    <h2>Perguntas frequentes.</h2>
-    <dl class="faq">
-      <div class="faq-item">
-        <dt>O NpSharp é gratuito?</dt>
-        <dd>Sim, open-source e gratuito para uso pessoal e comercial.</dd>
-      </div>
-      <div class="faq-item">
-        <dt>Quais sistemas operacionais são suportados?</dt>
-        <dd>Atualmente Windows. Suporte para macOS e Linux em breve.</dd>
-      </div>
-      <div class="faq-item">
-        <dt>Como instalar extensões?</dt>
-        <dd>Acesse o marketplace integrado e procure pelas extensões desejadas.</dd>
-      </div>
-      <div class="faq-item">
-        <dt>Posso contribuir?</dt>
-        <dd>Sim! Visite o repositório no GitHub para contribuir com código ou issues.</dd>
-      </div>
-    </dl>
-  </section>
+    menuToggle?.addEventListener("click", () => {
+      navbar.classList.toggle("mobile-open");
+    });
 
-  <section id="contato" class="section">
-    <p class="section-label">Contato</p>
-    <h2>Entre em contato.</h2>
-    <p>Feedback, suporte ou sugestões — fale com a gente. <a href="mailto:matheusgirelli357@gmail.com" style="color:#555;text-decoration:none;border-bottom:1px solid #333">matheusgirelli357@gmail.com</a></p>
-  </section>
-</main>
+    document.querySelectorAll(".nav-links a, .footer-links a").forEach(link => {
+      link.addEventListener("click", () => {
+        navbar.classList.remove("mobile-open");
+      });
+    });
 
-<footer>
-  <p>&copy; 2024 NpSharp. Todos os direitos reservados.</p>
-  <p>
-    <a href="#sobre">Sobre</a>
-    <a href="#recursos">Recursos</a>
-    <a href="#download">Download</a>
-    <a href="#changelog">Changelog</a>
-    <a href="#faq">FAQ</a>
-    <a href="mailto:matheusgirelli357@gmail.com">Contato</a>
-  </p>
-</footer>
-
+    faqItems.forEach(item => {
+      const button = item.querySelector(".faq-question");
+      button.addEventListener("click", () => {
+        const isActive = item.classList.contains("active");
+        faqItems.forEach(faq => faq.classList.remove("active"));
+        if (!isActive) item.classList.add("active");
+      });
+    });
+  </script>
 </body>
 </html>
+
